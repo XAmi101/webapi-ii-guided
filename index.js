@@ -1,10 +1,15 @@
 const express = require('express');
 
-const Hubs = require('./hubs/hubs-model.js');
+// const Hubs = require('./hubs/hubs-model.js');   <<< move to hubs-router.js and replace with >>> line 5
+
+const hubsRouter = require('./hubs/hubs-router.js');
 
 const server = express();
 
 server.use(express.json());
+
+server.use("/api/hubs", hubsRouter);  /* replaces the  after below requests are moved to hubsRouter.js */
+
 
 server.get('/', (req, res) => {
   res.send(`
@@ -12,6 +17,10 @@ server.get('/', (req, res) => {
     <p>Welcome to the Lambda Hubs API</p>
   `);
 });
+
+
+/*
+
 
 server.get('/api/hubs', (req, res) => {
   Hubs.find(req.query)
@@ -95,6 +104,12 @@ server.put('/api/hubs/:id', (req, res) => {
     });
   });
 });
+
+
+*/
+
+
+
 
 // add an endpoint that returns all the messages for a hub
 // add an endpoint for adding new message to a hub
